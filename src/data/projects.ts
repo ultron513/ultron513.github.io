@@ -6,6 +6,7 @@ export const projects = [
     category: "Full-Stack / Data Analytics",
     description:
       "A full-stack Formula 1 telemetry analytics platform for professional race performance analysis, enabling interactive visualization of driver telemetry, lap comparisons, race strategy evaluation, and predictive insights using real-world F1 data.",
+    image: "/images/projects/f1-telemetry-dashboard.webp",
     github:
       "https://github.com/ultron513/F1-Telemetry-Dashboard-2025",
     featured: true,
@@ -38,6 +39,7 @@ export const projects = [
     category: "AI / Machine Learning",
     description:
       "An AI-powered environmental sound classification platform for automated recognition of natural sounds, featuring real-time prediction, interactive analytics dashboards, and comprehensive dataset visualization.",
+    image: "/images/projects/natural-sound-intelligence.webp",
     github:
       "https://github.com/ultron513/Natural-Sound-Intelligence-Platform",
     featured: true,
@@ -71,6 +73,7 @@ export const projects = [
     category: "Machine Learning / Finance",
     description:
       "An end-to-end financial fraud detection system using machine learning and anomaly detection techniques to identify fraudulent transactions, assess financial risk, and support secure decision-making.",
+    image: "/images/projects/fraud-detection-platform.webp",
     github:
       "https://github.com/ultron513/Credit-Card-Fraud-Detection-Financial-Risk-Intelligence",
     featured: true,
@@ -102,6 +105,7 @@ export const projects = [
     category: "Computer Vision",
     description:
       "A computer vision-based infrastructure assessment system capable of detecting and classifying road surface damage from images to support automated road inspection and smart city maintenance initiatives.",
+    image: "/images/projects/road-damage-detection.webp",
     github:
       "https://github.com/ultron513/Road-Damage-Detection-Infrastructure-Risk-Intelligence",
     featured: true,
@@ -134,6 +138,7 @@ export const projects = [
     category: "Business Intelligence",
     description:
       "An interactive business intelligence dashboard for monitoring air quality trends across Indian cities, enabling pollution analysis, environmental reporting, and data-driven insights through dynamic visualizations.",
+    image: "/images/projects/air-quality-dashboard.webp",
     github: "https://github.com/ultron513/AQI-PowerBI-Dashboard",
     featured: false,
     highlights: [
@@ -160,6 +165,7 @@ export const projects = [
     category: "Natural Language Processing",
     description:
       "An NLP-powered application that interprets user dream narratives by analyzing emotional tone and symbolic patterns through a rule-based interpretation engine.",
+    image: "/images/projects/dream-decoder.webp",
     github: "https://github.com/ultron513/dream-canvas-interpret",
     featured: false,
     highlights: [

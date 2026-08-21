@@ -8,31 +8,35 @@ export function ProjectDetails({
   highlights,
 }: ProjectDetailsProps) {
   return (
-    <section className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+    <section className="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-zinc-600">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-700">
           Overview
         </p>
 
-        <p className="mt-5 text-lg leading-8 text-zinc-300">{overview}</p>
+        <p className="mt-6 text-xl font-medium leading-[1.55] tracking-[-0.015em] text-zinc-300 sm:text-2xl">
+          {overview}
+        </p>
       </div>
 
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-zinc-600">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-700">
           Highlights
         </p>
 
-        <div className="mt-6 divide-y divide-white/10 border-y border-white/10">
+        <div className="mt-6 divide-y divide-white/[0.07] border-y border-white/[0.07]">
           {highlights.map((highlight, index) => (
             <div
               key={highlight}
-              className="flex gap-5 py-5"
+              className="grid gap-5 py-6 sm:grid-cols-[42px_1fr]"
             >
-              <span className="shrink-0 text-xs tracking-[0.2em] text-zinc-700">
+              <span className="text-[10px] tracking-[0.25em] text-zinc-700">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
-              <p className="text-sm leading-6 text-zinc-400">{highlight}</p>
+              <p className="text-sm leading-7 text-zinc-500 sm:text-base">
+                {highlight}
+              </p>
             </div>
           ))}
         </div>

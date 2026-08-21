@@ -13,33 +13,38 @@ export function LoadingScreen() {
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
+      initial={{
+        opacity: 1,
+      }}
       animate={{
         opacity: 0,
-        pointerEvents: "none",
       }}
       transition={{
-        duration: 0.6,
-        delay: 0.3,
+        duration: 0.55,
+        delay: 0.25,
         ease: [0.22, 1, 0.36, 1],
       }}
       className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center bg-[#050505]"
       aria-hidden="true"
     >
-      <div className="text-center">
-        <p className="text-xs uppercase tracking-[0.35em] text-zinc-600">
+      <div className="w-40 text-center">
+        <p className="font-['Space_Grotesk'] text-sm font-medium tracking-[-0.02em] text-zinc-400">
           Ashish Patra
         </p>
 
-        <div className="mx-auto mt-5 h-px w-24 overflow-hidden bg-white/10">
+        <div className="mt-5 h-px w-full overflow-hidden bg-white/[0.08]">
           <motion.div
-            initial={{ x: "-100%" }}
-            animate={{ x: "0%" }}
+            initial={{
+              x: "-100%",
+            }}
+            animate={{
+              x: "0%",
+            }}
             transition={{
-              duration: 0.8,
+              duration: 0.75,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="h-full w-full bg-white/70"
+            className="h-full w-full bg-white/60"
           />
         </div>
       </div>

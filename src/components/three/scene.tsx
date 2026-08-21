@@ -15,19 +15,25 @@ type SceneProps = {
 function SceneContent({
   showParticles,
   showShapes,
-}: Required<Omit<SceneProps, "className">>) {
+}: Required<
+  Omit<SceneProps, "className">
+>) {
   return (
     <>
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={0.35} />
 
       <directionalLight
         position={[4, 6, 4]}
-        intensity={0.6}
+        intensity={0.45}
       />
 
-      {showParticles ? <ParticleField /> : null}
+      {showParticles ? (
+        <ParticleField />
+      ) : null}
 
-      {showShapes ? <FloatingShapes /> : null}
+      {showShapes ? (
+        <FloatingShapes />
+      ) : null}
     </>
   );
 }
@@ -43,7 +49,7 @@ export function Scene({
       aria-hidden="true"
     >
       <Canvas
-        dpr={[1, 1.5]}
+        dpr={[1, 1.25]}
         camera={{
           position: [0, 0, 8],
           fov: 50,
@@ -51,6 +57,7 @@ export function Scene({
         gl={{
           antialias: true,
           alpha: true,
+          powerPreference: "high-performance",
         }}
       >
         <Suspense fallback={null}>

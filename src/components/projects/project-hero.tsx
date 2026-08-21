@@ -2,31 +2,50 @@ type ProjectHeroProps = {
   category: string;
   title: string;
   description: string;
+  image?: string;
 };
 
 export function ProjectHero({
   category,
   title,
   description,
+  image,
 }: ProjectHeroProps) {
   return (
-    <header className="relative overflow-hidden border-b border-white/10 px-6 pb-20 pt-36 sm:pb-28 sm:pt-44">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-white/[0.025] blur-3xl" />
-      </div>
+    <header className="relative overflow-hidden border-b border-white/[0.08] pt-32 sm:pt-40">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 pb-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:pb-20">
+          <div className="max-w-5xl">
+            <p className="text-[10px] font-medium uppercase tracking-[0.35em] text-zinc-600">
+              {category}
+            </p>
 
-      <div className="mx-auto max-w-6xl">
-        <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">
-          {category}
-        </p>
+            <h1 className="mt-6 text-5xl font-medium leading-[0.95] tracking-[-0.05em] text-white sm:text-7xl lg:text-8xl">
+              {title}
+            </h1>
+          </div>
 
-        <h1 className="mt-6 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-[-0.04em] sm:text-7xl">
-          {title}
-        </h1>
+          <div className="lg:pb-2">
+            <p className="max-w-2xl text-base leading-8 text-zinc-500 sm:text-lg">
+              {description}
+            </p>
+          </div>
+        </div>
 
-        <p className="mt-8 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
-          {description}
-        </p>
+        {image ? (
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/[0.08] bg-black">
+            <img
+              src={image}
+              alt={`${title} visual overview`}
+              className="aspect-[16/8.5] w-full object-cover"
+            />
+
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"
+            />
+          </div>
+        ) : null}
       </div>
     </header>
   );

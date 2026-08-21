@@ -1,6 +1,7 @@
 type CertificateCardProps = {
   title: string;
   issuer: string;
+  category: string;
   year?: string;
   credentialId?: string;
   image?: string;
@@ -10,6 +11,7 @@ type CertificateCardProps = {
 export function CertificateCard({
   title,
   issuer,
+  category,
   year,
   credentialId,
   image,
@@ -17,38 +19,56 @@ export function CertificateCard({
 }: CertificateCardProps) {
   const content = (
     <>
-      <div className="aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-zinc-950">
+      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-black">
         {image ? (
-          <img
-            src={image}
-            alt={`${title} certificate`}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full flex-col items-center justify-center bg-gradient-to-br from-white/[0.06] to-transparent px-6 text-center">
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-700">
-              Certificate
-            </span>
+          <>
+            <img
+              src={image}
+              alt={`${title} certificate`}
+              loading="lazy"
+              className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
 
-            <span className="mt-3 max-w-xs text-sm text-zinc-600">
-              Certificate image
-            </span>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
+            />
+          </>
+        ) : (
+          <div className="flex aspect-[16/10] items-center justify-center bg-white/[0.015]">
+            <div className="text-center">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-700">
+                Credential
+              </p>
+
+              <p className="mt-3 text-sm text-zinc-600">
+                Image not available
+              </p>
+            </div>
           </div>
         )}
+
+        <span className="absolute left-4 top-4 rounded-full border border-white/[0.1] bg-black/40 px-3 py-1.5 text-[9px] uppercase tracking-[0.25em] text-white/60 backdrop-blur-md">
+          {category}
+        </span>
       </div>
 
       <div className="mt-6">
-        <p className="text-xs uppercase tracking-[0.25em] text-zinc-600">
+        <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-700">
           {issuer}
         </p>
 
-        <h3 className="mt-3 text-xl font-medium tracking-tight text-zinc-200">
+        <h3 className="mt-3 text-xl font-medium leading-tight tracking-[-0.02em] text-zinc-200">
           {title}
         </h3>
 
-        <div className="mt-3 flex flex-wrap gap-3 text-xs text-zinc-600">
+        <div className="mt-4 flex flex-wrap gap-3 text-xs text-zinc-700">
           {year ? <span>{year}</span> : null}
-          {credentialId ? <span>Credential: {credentialId}</span> : null}
+          {credentialId ? (
+            <span className="break-all">
+              Credential: {credentialId}
+            </span>
+          ) : null}
         </div>
       </div>
     </>
@@ -59,7 +79,7 @@ export function CertificateCard({
       <button
         type="button"
         onClick={onClick}
-        className="group w-full text-left"
+        className="group block w-full text-left"
       >
         {content}
       </button>

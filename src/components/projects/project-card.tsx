@@ -12,52 +12,68 @@ type ProjectCardProps = {
   project: ProjectCardData;
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+}: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.04] sm:p-8"
+      className="group relative block overflow-hidden rounded-[1.5rem] border border-white/[0.08] bg-white/[0.015] transition-all duration-500 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-white/[0.025] sm:rounded-[1.75rem]"
     >
-      <div className="flex items-start justify-between gap-6">
-        <span className="rounded-full border border-white/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-          {project.category}
-        </span>
+      <div className="relative overflow-hidden border-b border-white/[0.07]">
+        {project.image ? (
+          <>
+            <img
+              src={project.image}
+              alt={`${project.title} project preview`}
+              loading="lazy"
+              className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] sm:aspect-[16/9]"
+            />
 
-        <span
-          aria-hidden="true"
-          className="text-lg text-zinc-600 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-white"
-        >
-          ↗
-        </span>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"
+            />
+          </>
+        ) : (
+          <div
+            aria-hidden="true"
+            className="flex aspect-[16/10] items-center justify-center bg-zinc-950 sm:aspect-[16/9]"
+          >
+            <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-700">
+              Project
+            </span>
+          </div>
+        )}
       </div>
 
-      {project.image ? (
-        <div className="mt-8 aspect-[16/9] overflow-hidden rounded-2xl border border-white/10 bg-zinc-950">
-          <img
-            src={project.image}
-            alt={`${project.title} project preview`}
-            loading="lazy"
-            className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
-          />
-        </div>
-      ) : (
-        <div
-          aria-hidden="true"
-          className="mt-8 flex aspect-[16/9] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-transparent"
-        >
-          <span className="text-xs uppercase tracking-[0.3em] text-zinc-700">
-            Project
+      <div className="p-5 sm:p-7">
+        <div className="flex items-start justify-between gap-4">
+          <span className="max-w-[75%] rounded-full border border-white/[0.08] px-2.5 py-1.5 text-[8px] uppercase tracking-[0.2em] text-zinc-600 sm:px-3 sm:text-[9px] sm:tracking-[0.25em]">
+            {project.category}
+          </span>
+
+          <span
+            aria-hidden="true"
+            className="shrink-0 text-zinc-700 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+          >
+            ↗
           </span>
         </div>
-      )}
 
-      <h3 className="mt-7 text-2xl font-medium tracking-tight sm:text-3xl">
-        {project.title}
-      </h3>
+        <h3 className="mt-5 text-xl font-medium leading-tight tracking-[-0.025em] text-zinc-200 sm:mt-7 sm:text-3xl">
+          {project.title}
+        </h3>
 
-      <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-500">
-        {project.description}
-      </p>
+        <p className="mt-3 text-sm leading-6 text-zinc-600 sm:mt-4 sm:leading-7">
+          {project.description}
+        </p>
+
+        <div
+          aria-hidden="true"
+          className="mt-6 h-px w-8 bg-white/10 transition-all duration-500 group-hover:w-14 group-hover:bg-white/25 sm:mt-7"
+        />
+      </div>
     </Link>
   );
 }

@@ -22,7 +22,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
 
-  const project = projects.find((item) => item.slug === slug);
+  const project = projects.find(
+    (item) => item.slug === slug,
+  );
 
   if (!project) {
     return createMetadata("Project Not Found");
@@ -41,7 +43,9 @@ export default async function ProjectPage({
 }) {
   const { slug } = await params;
 
-  const project = projects.find((item) => item.slug === slug);
+  const project = projects.find(
+    (item) => item.slug === slug,
+  );
 
   if (!project) {
     notFound();
@@ -53,15 +57,22 @@ export default async function ProjectPage({
         category={project.category}
         title={project.title}
         description={project.description}
+        image={project.image}
       />
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
         <div className="mb-10">
           <Link
             href="/projects"
-            className="text-sm text-zinc-600 transition-colors hover:text-white"
+            className="group inline-flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-white"
           >
-            ← Back to projects
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            >
+              ←
+            </span>
+            Back to projects
           </Link>
         </div>
 
@@ -70,16 +81,14 @@ export default async function ProjectPage({
           highlights={project.highlights}
         />
 
-        <div className="mt-12">
+        <div className="mt-14">
           <ProjectTechStack
             technologies={project.technologies}
           />
         </div>
 
         <div className="mt-12">
-          <ProjectLinks
-            github={project.github}
-          />
+          <ProjectLinks github={project.github} />
         </div>
       </div>
     </main>

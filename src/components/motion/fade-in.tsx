@@ -1,31 +1,65 @@
 "use client";
 
-import { motion, type HTMLMotionProps } from "framer-motion";
+import type { CSSProperties, ReactNode } from "react";
+import { motion } from "framer-motion";
 
-import { FADE_IN_VARIANTS } from "@/lib/animations";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-type FadeInProps = HTMLMotionProps<"div"> & {
+type FadeInProps = {
+  children?: ReactNode;
+  className?: string;
+  id?: string;
+  style?: CSSProperties;
   delay?: number;
+  duration?: number;
+  distance?: number;
 };
 
 export function FadeIn({
   children,
+  className,
+  id,
+  style,
   delay = 0,
-  ...props
+  duration = 0.65,
+  distance = 22,
 }: FadeInProps) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) {
+    return (
+      <div
+        className={className}
+        id={id}
+        style={style}
+      >
+        {children}
+      </div>
+    );
+  }
+
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      className={className}
+      id={id}
+      style={style}
+      initial={{
+        opacity: 0,
+        y: distance,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
       viewport={{
         once: true,
-        amount: 0.2,
+        amount: 0.18,
       }}
-      variants={FADE_IN_VARIANTS}
       transition={{
+        duration,
         delay,
+        ease: [0.22, 1, 0.36, 1],
       }}
-      {...props}
     >
       {children}
     </motion.div>

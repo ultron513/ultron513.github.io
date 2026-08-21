@@ -1,93 +1,97 @@
 import Link from "next/link";
 
-const footerNavigation = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Experience",
-    href: "/experience",
-  },
-  {
-    label: "Projects",
-    href: "/projects",
-  },
-  {
-    label: "Certificates",
-    href: "/certificates",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
-];
+import { navigation } from "@/data/navigation";
+import { profile } from "@/data/profile";
 
 const socialLinks = [
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/ashish-patra-513akp/",
+    href: profile.contact.linkedin,
   },
   {
     label: "GitHub",
-    href: "https://github.com/ultron513",
+    href: profile.contact.github,
   },
   {
     label: "Email",
-    href: "mailto:ashish.patra513@gmail.com",
+    href: `mailto:${profile.contact.email}`,
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[var(--background)]">
-      <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-          <div>
+    <footer className="border-t border-white/[0.08] bg-[#030303]">
+      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-6 sm:py-12 lg:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+          <div className="max-w-xl">
             <Link
               href="/"
-              className="text-xl font-semibold tracking-tight transition-opacity hover:opacity-70"
+              className="group inline-flex items-center gap-3"
             >
-              Ashish Patra
+              <span
+                aria-hidden="true"
+                className="flex size-9 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.03] font-['Space_Grotesk'] text-xs font-medium text-white transition-all duration-300 group-hover:border-white/[0.2] group-hover:bg-white/[0.06]"
+              >
+                AP
+              </span>
+
+              <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white">
+                Ashish Patra
+              </span>
             </Link>
 
-            <p className="mt-4 max-w-md text-sm leading-6 text-zinc-500">
-              Software development, artificial intelligence, data science,
-              machine learning, and full-stack engineering.
+            <p className="mt-5 max-w-md text-sm leading-7 text-zinc-700">
+              Software engineering, artificial intelligence, data science,
+              machine learning, and full-stack systems.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-x-6 gap-y-3">
-            {footerNavigation.map((item) => (
+          <nav
+            aria-label="Footer navigation"
+            className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3 sm:gap-x-12"
+          >
+            {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-zinc-500 transition-colors hover:text-white"
+                className="text-sm text-zinc-600 transition-colors hover:text-white"
               >
                 {item.label}
               </Link>
             ))}
-          </div>
+          </nav>
         </div>
 
-        <div className="mt-10 flex flex-col gap-5 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} Ashish Kumar Patra. All rights
-            reserved.
+        <div className="mt-10 flex flex-col gap-5 border-t border-white/[0.07] pt-6 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-zinc-800">
+            © {new Date().getFullYear()} Ashish Kumar Patra
           </p>
 
-          <div className="flex flex-wrap gap-5">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("http") ? "_blank" : undefined}
-                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                className="text-xs text-zinc-600 transition-colors hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {socialLinks.map((link) => {
+              const isExternal =
+                link.href.startsWith("http");
+
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={
+                    isExternal
+                      ? "_blank"
+                      : undefined
+                  }
+                  rel={
+                    isExternal
+                      ? "noreferrer"
+                      : undefined
+                  }
+                  className="text-xs text-zinc-700 transition-colors hover:text-zinc-300"
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

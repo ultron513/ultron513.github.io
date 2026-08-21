@@ -28,23 +28,31 @@ export function MobileMenu({ items }: MobileMenuProps) {
     <>
       <button
         type="button"
-        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-label={
+          isOpen
+            ? "Close navigation menu"
+            : "Open navigation menu"
+        }
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={() => setIsOpen((current) => !current)}
-        className="relative flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] md:hidden"
+        className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] md:hidden sm:size-10"
       >
         <span
           aria-hidden="true"
-          className={`absolute h-px w-4 bg-white transition-transform duration-300 ${
-            isOpen ? "rotate-45" : "-translate-y-1.5"
+          className={`absolute h-px w-3.5 bg-white transition-transform duration-300 sm:w-4 ${
+            isOpen
+              ? "rotate-45"
+              : "-translate-y-1.5"
           }`}
         />
 
         <span
           aria-hidden="true"
-          className={`absolute h-px w-4 bg-white transition-transform duration-300 ${
-            isOpen ? "-rotate-45" : "translate-y-1.5"
+          className={`absolute h-px w-3.5 bg-white transition-transform duration-300 sm:w-4 ${
+            isOpen
+              ? "-rotate-45"
+              : "translate-y-1.5"
           }`}
         />
       </button>
@@ -52,24 +60,27 @@ export function MobileMenu({ items }: MobileMenuProps) {
       {isOpen ? (
         <div
           id={panelId}
-          className="fixed inset-0 top-[76px] bg-black/95 backdrop-blur-xl md:hidden"
+          className="fixed inset-x-0 bottom-0 top-[64px] overflow-y-auto bg-black/96 backdrop-blur-2xl sm:top-[72px] md:hidden"
         >
-          <div className="flex min-h-[calc(100vh-76px)] flex-col px-6 pb-8 pt-12">
-            <nav aria-label="Mobile navigation" className="flex flex-col">
+          <div className="min-h-full px-5 pb-8 pt-8 sm:px-6 sm:pt-12">
+            <nav
+              aria-label="Mobile navigation"
+              className="flex flex-col"
+            >
               {items.map((item, index) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="group flex items-center justify-between border-b border-white/10 py-6"
+                  className="group flex items-center justify-between gap-5 border-b border-white/10 py-5 sm:py-6"
                 >
-                  <span className="text-3xl font-medium tracking-tight text-zinc-300 transition-colors group-hover:text-white">
+                  <span className="text-[clamp(1.75rem,8vw,3rem)] font-medium leading-none tracking-[-0.035em] text-zinc-300 transition-colors group-hover:text-white">
                     {item.label}
                   </span>
 
                   <span
                     aria-hidden="true"
-                    className="text-sm text-zinc-600"
+                    className="shrink-0 text-[10px] tracking-[0.25em] text-zinc-700"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -77,11 +88,11 @@ export function MobileMenu({ items }: MobileMenuProps) {
               ))}
             </nav>
 
-            <div className="mt-auto pt-10">
+            <div className="pt-8">
               <Link
                 href="/contact"
                 onClick={() => setIsOpen(false)}
-                className="inline-flex rounded-full bg-white px-6 py-3 text-sm font-medium text-black"
+                className="inline-flex min-h-12 items-center rounded-full bg-white px-6 text-sm font-medium text-black"
               >
                 Let&apos;s Connect
               </Link>

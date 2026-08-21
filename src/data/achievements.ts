@@ -42,7 +42,7 @@ export const achievements = [
   {
     title: "International Research & Industry",
     description:
-      "Built research and industry experience across McLaren Racing, IST Austria, Stanford University, Microsoft Elevate, Outlier.AI, and IIT Guwahati.",
+      "Experience spanning McLaren Racing, IIT Guwahati, Microsoft Elevate / AICTE, IST Austria, Stanford University, and Outlier.AI.",
     metric: "6 Experiences",
     category: "Professional",
   },

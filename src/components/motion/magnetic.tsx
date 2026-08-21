@@ -6,18 +6,21 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
-
 import { motion } from "framer-motion";
+
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 type MagneticProps = {
   children: ReactNode;
   strength?: number;
+  disabled?: boolean;
   className?: string;
 };
 
 export function Magnetic({
   children,
-  strength = 0.2,
+  strength = 0.18,
+  disabled = false,
   className,
 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +29,16 @@ export function Magnetic({
     y: 0,
   });
 
-  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+  const reducedMotion = useReducedMotion();
+  const isDisabled = disabled || reducedMotion;
+
+  const handleMouseMove = (
+    event: MouseEvent<HTMLDivElement>,
+  ) => {
+    if (isDisabled) {
+      return;
+    }
+
     const element = ref.current;
 
     if (!element) {
@@ -36,10 +48,14 @@ export function Magnetic({
     const bounds = element.getBoundingClientRect();
 
     const relativeX =
-      event.clientX - bounds.left - bounds.width / 2;
+      event.clientX -
+      bounds.left -
+      bounds.width / 2;
 
     const relativeY =
-      event.clientY - bounds.top - bounds.height / 2;
+      event.clientY -
+      bounds.top -
+      bounds.height / 2;
 
     setPosition({
       x: relativeX * strength,
@@ -58,15 +74,22 @@ export function Magnetic({
     <motion.div
       ref={ref}
       className={className}
-      animate={{
-        x: position.x,
-        y: position.y,
-      }}
+      animate={
+        isDisabled
+          ? {
+              x: 0,
+              y: 0,
+            }
+          : {
+              x: position.x,
+              y: position.y,
+            }
+      }
       transition={{
         type: "spring",
-        stiffness: 300,
-        damping: 20,
-        mass: 0.5,
+        stiffness: 320,
+        damping: 24,
+        mass: 0.45,
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

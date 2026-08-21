@@ -10,7 +10,7 @@ type ParticleFieldProps = {
 };
 
 export function ParticleField({
-  count = 700,
+  count = 500,
   spread = 14,
 }: ParticleFieldProps) {
   const pointsRef = useRef<THREE.Points>(null);
@@ -21,9 +21,14 @@ export function ParticleField({
     for (let index = 0; index < count; index += 1) {
       const offset = index * 3;
 
-      data[offset] = (Math.random() - 0.5) * spread;
-      data[offset + 1] = (Math.random() - 0.5) * spread;
-      data[offset + 2] = (Math.random() - 0.5) * spread;
+      data[offset] =
+        (Math.random() - 0.5) * spread;
+
+      data[offset + 1] =
+        (Math.random() - 0.5) * spread;
+
+      data[offset + 2] =
+        (Math.random() - 0.5) * spread;
     }
 
     return data;
@@ -36,8 +41,12 @@ export function ParticleField({
       return;
     }
 
-    points.rotation.y += delta * 0.018;
-    points.rotation.x = Math.sin(state.clock.elapsedTime * 0.08) * 0.08;
+    points.rotation.y += delta * 0.012;
+
+    points.rotation.x =
+      Math.sin(
+        state.clock.elapsedTime * 0.06,
+      ) * 0.05;
   });
 
   return (
@@ -50,10 +59,10 @@ export function ParticleField({
       </bufferGeometry>
 
       <pointsMaterial
-        size={0.025}
+        size={0.022}
         sizeAttenuation
         transparent
-        opacity={0.45}
+        opacity={0.32}
         depthWrite={false}
       />
     </points>
