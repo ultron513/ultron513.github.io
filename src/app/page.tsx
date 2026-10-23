@@ -1,40 +1,30 @@
-import { About } from "@/components/sections/about";
+import { CvConsole } from "@/components/cv-search/cv-console";
 import { Achievements } from "@/components/sections/achievements";
-import { CertificationsPreview } from "@/components/sections/certifications-preview";
-import { ContactPreview } from "@/components/sections/contact-preview";
-import { Education } from "@/components/sections/education";
-import { ExperiencePreview } from "@/components/sections/experience-preview";
-import { FinalCta } from "@/components/sections/final-cta";
+import { Comms } from "@/components/sections/comms";
+import { FlightTraining } from "@/components/sections/flight-training";
 import { Hero } from "@/components/sections/hero";
-import { ProjectsPreview } from "@/components/sections/projects-preview";
-import { Skills } from "@/components/sections/skills";
-import { Scene } from "@/components/three/scene";
+import { MissionPatches } from "@/components/sections/mission-patches";
+import { OrbitSection } from "@/components/sections/orbit-section";
+import { Satellites } from "@/components/sections/satellites";
+import { SystemsPanel } from "@/components/sections/systems-panel";
+import { TelemetryStrip } from "@/components/sections/telemetry-strip";
+import { BootSequence } from "@/components/shell/boot-sequence";
+import { getCvMeta } from "@/lib/cv-meta";
 
+/** Mission Control (spec §4): one continuous descent from deep orbit to ground. */
 export default function HomePage() {
   return (
-    <main className="relative overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-screen">
-        <Scene
-          className="absolute inset-0 opacity-70"
-          showParticles
-          showShapes
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
-      </div>
-
-      <div className="relative z-10">
-        <Hero />
-        <About />
-        <ExperiencePreview />
-        <ProjectsPreview />
-        <Skills />
-        <Education />
-        <CertificationsPreview />
-        <Achievements />
-        <ContactPreview />
-        <FinalCta />
-      </div>
-    </main>
+    <>
+      <BootSequence />
+      <Hero />
+      <TelemetryStrip />
+      <OrbitSection />
+      <Satellites />
+      <SystemsPanel />
+      <FlightTraining />
+      <MissionPatches />
+      <Achievements />
+      <Comms console={<CvConsole meta={getCvMeta()} compact />} />
+    </>
   );
 }

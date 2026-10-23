@@ -1,45 +1,61 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ExperienceTimeline } from "@/components/experience/experience-timeline";
-import { experience } from "@/data/experience";
-import { createMetadata } from "@/lib/metadata";
+import { OrbitMap } from "@/components/orbit/orbit-map";
+import { experience, formatPeriod, moduleId } from "@/content";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = createMetadata(
-  "Experience",
-  "Professional, research, mentoring, and applied engineering experience of Ashish Kumar Patra across software, AI, data, and performance-focused systems.",
-);
+export const metadata: Metadata = pageMetadata({
+  title: "Experience",
+  description:
+    "Six job spaces: McLaren Racing, IIT Guwahati, Microsoft Elevate, ISTA, Stanford Code in Place and Outlier.AI.",
+  path: "/experience",
+  og: "experience",
+});
 
+/** Orbit map of all six spaces plus a plain timeline view (spec §3). */
 export default function ExperiencePage() {
   return (
-    <main className="min-h-screen bg-[var(--background)] px-6 pb-24 pt-36 text-[var(--foreground)]">
-      <div className="mx-auto max-w-6xl">
-        <Link
-          href="/"
-          className="text-sm text-zinc-600 transition-colors hover:text-white"
-        >
-          ← Back home
-        </Link>
+    <div className="mx-auto max-w-6xl px-5 pb-24 pt-28 sm:pt-32">
+      <header className="max-w-2xl">
+        <p className="font-mono text-xs text-faint">{experience.length} modules in orbit</p>
+        <h1 id="experience-title" className="mt-3 font-display text-3xl text-ink">
+          Orbit map
+        </h1>
+        <p className="mt-4 text-lg text-muted">
+          Every workplace is its own module with its own interior. Pick a station to dock, or read
+          the plain timeline below.
+        </p>
+      </header>
 
-        <header className="mt-14">
-          <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">
-            Career
-          </p>
-
-          <h1 className="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">
-            Experience
-          </h1>
-
-          <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
-            Industry, research, mentoring, and applied engineering experience
-            across software, AI, data, and performance-focused systems.
-          </p>
-        </header>
-
-        <section className="mt-16">
-          <ExperienceTimeline items={experience} />
-        </section>
+      <div className="mt-12">
+        <OrbitMap headingId="experience-title" />
       </div>
-    </main>
+
+      <section aria-labelledby="timeline-title" className="mt-24">
+        <h2 id="timeline-title" className="font-display text-xl text-ink">
+          Timeline
+        </h2>
+        <ol className="mt-6 divide-y divide-line border-y border-line">
+          {experience.map((item) => (
+            <li key={item.slug} data-space={item.space}>
+              <Link
+                href={`/experience/${item.slug}/`}
+                className="group grid gap-2 py-5 sm:grid-cols-[8rem_1fr_auto] sm:items-baseline sm:gap-6"
+              >
+                <span className="font-mono text-xs text-faint">{moduleId(item.slug)}</span>
+                <span>
+                  <span className="block font-display text-lg text-ink group-hover:text-space">
+                    {item.organization}
+                  </span>
+                  <span className="block text-sm text-muted">{item.role}</span>
+                </span>
+                <span className="text-sm text-muted">{formatPeriod(item)}</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
   );
 }
