@@ -239,3 +239,13 @@
     stroke-dashoffset: 0;
   }
 }
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(14px, -18px) rotate(12deg);
+  }
+}
