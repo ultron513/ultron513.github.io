@@ -22,42 +22,42 @@ The personal portfolio of Ashish Kumar Patra, live at https://ultron513.github.i
 
 Change this line only after Ashish approves a phase gate.
 
-| Phase | Scope (spec §10) |
-| --- | --- |
-| 0 | Spec approval: **done** |
-| 1 | Foundation: OKLCH tokens and both themes, Zod content model, audit cleanup (§8), public CV, verification tooling |
-| 2 | Shell and Mission Control home: command bar, theme dial, 3D hero, orbit map, warp jump |
-| 3 | CV search and download flow, Ctrl/Cmd+K palette |
-| 4 | Job spaces A: McLaren (race), ISTA (search), Stanford (campus) |
-| 5 | Job spaces B: IIT Guwahati (lab), Microsoft Elevate (bi), Outlier (terminal) |
-| 6 | Projects, certificates, contact and 404 restyle |
-| 7 | QA and launch |
+| Phase | Scope (spec §10)                                                                                                 |
+| ----- | ---------------------------------------------------------------------------------------------------------------- |
+| 0     | Spec approval: **done**                                                                                          |
+| 1     | Foundation: OKLCH tokens and both themes, Zod content model, audit cleanup (§8), public CV, verification tooling |
+| 2     | Shell and Mission Control home: command bar, theme dial, 3D hero, orbit map, warp jump                           |
+| 3     | CV search and download flow, Ctrl/Cmd+K palette                                                                  |
+| 4     | Job spaces A: McLaren (race), ISTA (search), Stanford (campus)                                                   |
+| 5     | Job spaces B: IIT Guwahati (lab), Microsoft Elevate (bi), Outlier (terminal)                                     |
+| 6     | Projects, certificates, contact and 404 restyle                                                                  |
+| 7     | QA and launch                                                                                                    |
 
 ## Hard rules
 
 1. **Spec is immutable.** See above. A change needs a new spec version that Ashish approves.
 2. **One phase at a time.**
-    - Work only inside the current phase's scope.
-    - When it is done, run the `phase-gate` workflow and **stop**.
-    - Never begin the next phase without Ashish's explicit approval.
+   - Work only inside the current phase's scope.
+   - When it is done, run the `phase-gate` workflow and **stop**.
+   - Never begin the next phase without Ashish's explicit approval.
 3. **Plan first.** Use Planning Mode for each phase and get the plan approved before writing code. Fast Mode is only for small fixes inside an approved phase.
 4. **Dependencies.**
-    - Add no package without approval.
-    - Approved by the spec:
-        - **Removals:** `gsap`, `lenis`, `@react-three/drei`, `class-variance-authority`, `next-themes`.
-        - **Additions:** `eslint` + `eslint-config-next`, `@playwright/test`, `sharp` (dev, for image scripts), a Lighthouse CLI, and self-hosted JetBrains Mono Variable font files.
-    - Anything else, ask first.
+   - Add no package without approval.
+   - Approved by the spec:
+     - **Removals:** `gsap`, `lenis`, `@react-three/drei`, `class-variance-authority`, `next-themes`.
+     - **Additions:** `eslint` + `eslint-config-next`, `@playwright/test`, `sharp` (dev, for image scripts), a Lighthouse CLI, and self-hosted JetBrains Mono Variable font files.
+   - Anything else, ask first.
 5. **Custom over convenience.** Prefer small hand-written implementations (theme provider, shaders, tilt, text scramble, helpers) over new libraries.
 6. **Colour only through tokens.**
-    - No hex, `rgb()` or `oklch()` literals in components.
-    - No Tailwind palette colour classes (`zinc-*`, `white`, `black`, etc.).
-    - See `.agents/rules/design-system.md`.
+   - No hex, `rgb()` or `oklch()` literals in components.
+   - No Tailwind palette colour classes (`zinc-*`, `white`, `black`, etc.).
+   - See `.agents/rules/design-system.md`.
 7. **Both themes, always.** Deep Space (dark) and Daylight Orbit (light) are equally polished. Every UI change is checked in both.
 8. **Brand guardrails.** No logos, seals, wordmarks, mascots or trade dress of any organisation. See `.agents/rules/brand-guardrails.md`.
 9. **Real content only.**
-    - All CV text comes from `src/content/` and is copied verbatim from the CV.
-    - Never invent metrics, data, quotes or achievements.
-    - Any decorative data is synthetic and labelled "illustrative".
+   - All CV text comes from `src/content/` and is copied verbatim from the CV.
+   - Never invent metrics, data, quotes or achievements.
+   - Any decorative data is synthetic and labelled "illustrative".
 10. **Motion is accessible.**
     - Every animation has a `prefers-reduced-motion` path.
     - No scroll-jacking.
@@ -73,17 +73,17 @@ Change this line only after Ashish approves a phase gate.
 
 ## Commands
 
-| Command | What it does | Available from |
-| --- | --- | --- |
-| `pnpm install` | Install dependencies (pnpm 11, lockfile v9) | now |
-| `pnpm dev` | Dev server | now |
-| `pnpm build` | Static export to `out/` | now |
-| `pnpm format` / `pnpm format:check` | Prettier | now |
-| `pnpm typecheck` | `tsc --noEmit` | Phase 1 adds it |
-| `pnpm lint` | `eslint .` (flat config). The old `next lint` is deprecated and fails today | Phase 1 replaces it |
-| `pnpm check:contrast` | `scripts/check-contrast.ts`: fails if any text token pair is below 4.5:1 in either theme | Phase 1 adds it |
-| `pnpm test:visual` | Playwright screenshots: home, six spaces, `/cv`, both themes, 390 px and 1440 px | Phase 1 adds it |
-| `pnpm images` | `scripts/optimise-images.ts`: re-encode project images to ≤ 250 kB at 1600 w and 800 w | Phase 1 adds it |
+| Command                             | What it does                                                                             | Available from      |
+| ----------------------------------- | ---------------------------------------------------------------------------------------- | ------------------- |
+| `pnpm install`                      | Install dependencies (pnpm 11, lockfile v9)                                              | now                 |
+| `pnpm dev`                          | Dev server                                                                               | now                 |
+| `pnpm build`                        | Static export to `out/`                                                                  | now                 |
+| `pnpm format` / `pnpm format:check` | Prettier                                                                                 | now                 |
+| `pnpm typecheck`                    | `tsc --noEmit`                                                                           | Phase 1 adds it     |
+| `pnpm lint`                         | `eslint .` (flat config). The old `next lint` is deprecated and fails today              | Phase 1 replaces it |
+| `pnpm check:contrast`               | `scripts/check-contrast.ts`: fails if any text token pair is below 4.5:1 in either theme | Phase 1 adds it     |
+| `pnpm test:visual`                  | Playwright screenshots: home, six spaces, `/cv`, both themes, 390 px and 1440 px         | Phase 1 adds it     |
+| `pnpm images`                       | `scripts/optimise-images.ts`: re-encode project images to ≤ 250 kB at 1600 w and 800 w   | Phase 1 adds it     |
 
 ## Target structure (spec §8)
 

@@ -1,40 +1,15 @@
-import { About } from "@/components/sections/about";
-import { Achievements } from "@/components/sections/achievements";
-import { CertificationsPreview } from "@/components/sections/certifications-preview";
-import { ContactPreview } from "@/components/sections/contact-preview";
-import { Education } from "@/components/sections/education";
-import { ExperiencePreview } from "@/components/sections/experience-preview";
-import { FinalCta } from "@/components/sections/final-cta";
-import { Hero } from "@/components/sections/hero";
-import { ProjectsPreview } from "@/components/sections/projects-preview";
-import { Skills } from "@/components/sections/skills";
-import { Scene } from "@/components/three/scene";
+import { profile, stats } from "@/content";
 
+/* Phase 1 placeholder: verifies tokens and both themes. Replaced by Mission Control in Phase 2. */
 export default function HomePage() {
   return (
-    <main className="relative overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-screen">
-        <Scene
-          className="absolute inset-0 opacity-70"
-          showParticles
-          showShapes
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
-      </div>
-
-      <div className="relative z-10">
-        <Hero />
-        <About />
-        <ExperiencePreview />
-        <ProjectsPreview />
-        <Skills />
-        <Education />
-        <CertificationsPreview />
-        <Achievements />
-        <ContactPreview />
-        <FinalCta />
-      </div>
+    <main id="main" className="mx-auto max-w-3xl px-4 py-24">
+      <h1 className="font-display text-3xl text-ink">{profile.name}</h1>
+      <p className="mt-4 text-muted">{profile.introduction}</p>
+      <p className="mt-2 font-mono text-sm text-faint">
+        {stats.experiences} experiences, {stats.projects} projects, LeetCode {stats.leetcodeSolved}
+      </p>
+      <p className="mt-6 text-accent">Accent</p>
     </main>
   );
 }

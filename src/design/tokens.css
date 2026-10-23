@@ -1,0 +1,145 @@
+/*
+ * Design tokens: spec §2 (docs/spec/redesign-v1.md).
+ * Every colour in the site comes from here. Components never use raw colour values.
+ * Values are fixed by the approved spec; `pnpm check:contrast` verifies them.
+ *
+ * Theme selection:
+ *   [data-theme="dark"]  -> Deep Space
+ *   [data-theme="light"] -> Daylight Orbit
+ *   no attribute (JS disabled) -> follows prefers-color-scheme
+ */
+
+/* ---------- Deep Space (dark, default) ---------- */
+:root,
+:root[data-theme="dark"] {
+  --bg: oklch(0.15 0.025 272);
+  --bg-elevated: oklch(0.2 0.03 272);
+  --text: oklch(0.96 0.01 250);
+  --text-muted: oklch(0.76 0.025 260);
+  --text-faint: oklch(0.64 0.03 262);
+  --accent: oklch(0.83 0.13 210);
+  --accent-2: oklch(0.74 0.14 295);
+  --on-accent: oklch(0.15 0.025 272);
+
+  --border: oklch(0.96 0.01 250 / 0.12);
+  --border-strong: oklch(0.96 0.01 250 / 0.22);
+  --glass: oklch(0.2 0.03 272 / 0.55);
+  --glass-blur: 16px;
+  --depth: 0 0 0 1px oklch(0.83 0.13 210 / 0.06), 0 0 32px -8px oklch(0.83 0.13 210 / 0.22);
+  --glow: oklch(0.83 0.13 210 / 0.35);
+  --grain-opacity: 0.05;
+  --scanline-opacity: 0.04;
+
+  /* 3D + illustration channels (decorative only, never text) */
+  --scene-star: oklch(0.96 0.01 250);
+  --scene-line: oklch(0.83 0.13 210 / 0.35);
+  --scene-planet: oklch(0.83 0.13 210);
+  --scene-limb: oklch(0.74 0.14 295);
+  --horizon: oklch(0.3 0.08 272 / 0.6);
+
+  /* Job-space accents */
+  --space-race: oklch(0.72 0.16 305);
+  --space-race-2: oklch(0.8 0.2 145);
+  --space-lab: oklch(0.82 0.14 175);
+  --space-bi: oklch(0.84 0.15 95);
+  --space-search: oklch(0.76 0.11 250);
+  --space-campus: oklch(0.8 0.09 85);
+  --space-terminal: oklch(0.86 0.18 145);
+
+  color-scheme: dark;
+}
+
+/* ---------- Daylight Orbit (light) ---------- */
+:root[data-theme="light"] {
+  --bg: oklch(0.975 0.008 250);
+  --bg-elevated: oklch(1 0 0);
+  --text: oklch(0.22 0.035 265);
+  --text-muted: oklch(0.44 0.035 262);
+  --text-faint: oklch(0.52 0.03 262);
+  --accent: oklch(0.52 0.09 225);
+  --accent-2: oklch(0.5 0.19 295);
+  --on-accent: oklch(1 0 0);
+
+  --border: oklch(0.22 0.035 265 / 0.12);
+  --border-strong: oklch(0.22 0.035 265 / 0.22);
+  --glass: oklch(1 0 0 / 0.65);
+  --glass-blur: 16px;
+  --depth: 0 1px 2px oklch(0.22 0.035 265 / 0.06), 0 12px 32px -12px oklch(0.22 0.035 265 / 0.18);
+  --glow: oklch(0.52 0.09 225 / 0.25);
+  --grain-opacity: 0.03;
+  --scanline-opacity: 0.025;
+
+  --scene-star: oklch(0.22 0.035 265);
+  --scene-line: oklch(0.22 0.035 265 / 0.22);
+  --scene-planet: oklch(0.52 0.09 225);
+  --scene-limb: oklch(0.85 0.09 70);
+  --horizon: oklch(0.88 0.05 230 / 0.9);
+
+  --space-race: oklch(0.48 0.21 305);
+  --space-race-2: oklch(0.5 0.15 145);
+  --space-lab: oklch(0.5 0.085 180);
+  --space-bi: oklch(0.52 0.105 80);
+  --space-search: oklch(0.5 0.16 255);
+  --space-campus: oklch(0.5 0.09 70);
+  --space-terminal: oklch(0.5 0.14 145);
+
+  color-scheme: light;
+}
+
+/* No-JS fallback: follow the OS when no explicit theme is set */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: oklch(0.975 0.008 250);
+    --bg-elevated: oklch(1 0 0);
+    --text: oklch(0.22 0.035 265);
+    --text-muted: oklch(0.44 0.035 262);
+    --text-faint: oklch(0.52 0.03 262);
+    --accent: oklch(0.52 0.09 225);
+    --accent-2: oklch(0.5 0.19 295);
+    --on-accent: oklch(1 0 0);
+    --border: oklch(0.22 0.035 265 / 0.12);
+    --border-strong: oklch(0.22 0.035 265 / 0.22);
+    --glass: oklch(1 0 0 / 0.65);
+    --depth: 0 1px 2px oklch(0.22 0.035 265 / 0.06), 0 12px 32px -12px oklch(0.22 0.035 265 / 0.18);
+    --glow: oklch(0.52 0.09 225 / 0.25);
+    --grain-opacity: 0.03;
+    --scanline-opacity: 0.025;
+    --scene-star: oklch(0.22 0.035 265);
+    --scene-line: oklch(0.22 0.035 265 / 0.22);
+    --scene-planet: oklch(0.52 0.09 225);
+    --scene-limb: oklch(0.85 0.09 70);
+    --horizon: oklch(0.88 0.05 230 / 0.9);
+    --space-race: oklch(0.48 0.21 305);
+    --space-race-2: oklch(0.5 0.15 145);
+    --space-lab: oklch(0.5 0.085 180);
+    --space-bi: oklch(0.52 0.105 80);
+    --space-search: oklch(0.5 0.16 255);
+    --space-campus: oklch(0.5 0.09 70);
+    --space-terminal: oklch(0.5 0.14 145);
+    color-scheme: light;
+  }
+}
+
+/* ---------- Job-space accent switch (spec §2) ---------- */
+[data-space] {
+  --space-accent-2: var(--space-accent);
+}
+[data-space="race"] {
+  --space-accent: var(--space-race);
+  --space-accent-2: var(--space-race-2);
+}
+[data-space="lab"] {
+  --space-accent: var(--space-lab);
+}
+[data-space="bi"] {
+  --space-accent: var(--space-bi);
+}
+[data-space="search"] {
+  --space-accent: var(--space-search);
+}
+[data-space="campus"] {
+  --space-accent: var(--space-campus);
+}
+[data-space="terminal"] {
+  --space-accent: var(--space-terminal);
+}

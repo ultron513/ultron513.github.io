@@ -1,0 +1,118 @@
+import type { Experience } from "./schema";
+
+/*
+ * `cvBullets` are copied verbatim from public/documents/Ashish_Patra_CV.pdf (spec §3, §5).
+ * Order: most recent first.
+ */
+export const experience: Experience[] = [
+  {
+    slug: "mclaren-racing",
+    space: "race",
+    organization: "McLaren Racing",
+    role: "Student Racing Data Scientist Intern",
+    location: "Woking, UK",
+    start: "2026-05",
+    end: "2026-07",
+    cvBullets: [
+      "Analyzed high-frequency Formula 1 telemetry data using Python, SQL, and statistical methods to evaluate driver performance, vehicle dynamics, and race strategy",
+      "Developed real-time telemetry analysis pipelines and interactive dashboards for visualizing throttle, braking, steering, tyre degradation, and lap performance",
+      "Applied machine learning, time-series analysis, and predictive modelling to identify performance trends and support data-driven engineering decisions.",
+      "Collaborated with race engineers and data scientists on telemetry interpretation, aerodynamic correlation, and race simulation workflows to optimize on-track performance.",
+      "Designed and optimized software components for telemetry data processing by implementing efficient algorithms, reusable modules, and maintainable code structures to support high-performance analytical workflows.",
+      "Authored technical documentation and collaborated in code reviews to ensure software quality, maintainability, and seamless integration of analytics solutions within cross-functional engineering teams.",
+    ],
+    stack: [
+      "Python",
+      "SQL",
+      "Statistical methods",
+      "Machine learning",
+      "Time-series analysis",
+      "Predictive modelling",
+    ],
+    links: ["f1-telemetry-analytics-platform"],
+    image: "/images/experience/mclaren-racing.webp",
+  },
+  {
+    slug: "iit-guwahati",
+    space: "lab",
+    organization: "IIT Guwahati",
+    role: "Project Intern",
+    location: "Guwahati, India",
+    start: "2026-03",
+    end: "2026-07",
+    cvBullets: [
+      "Developed AI and machine learning solutions by designing end-to-end data processing pipelines, performing feature engineering, and optimizing predictive models using Python and Scikit-learn.",
+      "Conducted applied research through data analysis, model evaluation, and technical documentation, delivering scalable solutions for real-world analytical and research applications.",
+    ],
+    stack: ["Python", "Scikit-learn"],
+    links: [
+      "natural-sound-intelligence-platform",
+      "credit-card-fraud-detection-financial-risk-intelligence",
+    ],
+  },
+  {
+    slug: "microsoft-elevate",
+    space: "bi",
+    organization: "Microsoft Elevate / AICTE",
+    role: "Power BI Trainee",
+    location: "India",
+    start: "2026-02",
+    end: "2026-03",
+    cvBullets: [
+      "Developed an interactive Air Quality Monitoring Dashboard in Power BI by analysing AQI trends across Indian cities using Power Query, DAX, and data visualization techniques.",
+      "Designed dynamic dashboards featuring KPI cards, trend analysis, pollution maps, city rankings, and interactive filters to identify pollution patterns and support data-driven insights.",
+      "Performed data cleaning, transformation, and exploratory data analysis to convert raw environmental datasets into actionable business intelligence reports and visualizations.",
+    ],
+    stack: ["Power BI", "Power Query", "DAX", "Data visualization"],
+    links: ["air-quality-monitoring-dashboard"],
+  },
+  {
+    slug: "ista",
+    space: "search",
+    organization: "Institute of Science and Technology Austria",
+    role: "Research Intern, ISTernship 2025",
+    location: "Klosterneuburg, Austria",
+    start: "2025-05",
+    end: "2025-06",
+    cvBullets: [
+      "Conducted research on Optimal Code Block Design under Prof. Marco Mondelli, investigating compiler co-optimization strategies that balance modular software design with runtime performance.",
+      "Collaborated with researchers at ISTA and engineers at Google Zurich as part of an international exchange, contributing to compiler optimization research through formal methods and architecture-aware system design.",
+      "Developed and evaluated prototype optimization workflows using C++, Python, LLVM, Graphviz, Git, and performance profiling, analysing the impact of code organization on compiler behaviour.",
+      "Performed experimental analysis of compiler diagnostics and optimization trade-offs, validating approaches for improving execution efficiency across complex software systems.",
+      "Documented research findings through technical reports and presentations, delivering scalable compiler optimization methodologies with applications in high-performance computing and modern software engineering.",
+    ],
+    stack: ["C++", "Python", "LLVM", "Graphviz", "Git", "Performance profiling"],
+    links: [],
+  },
+  {
+    slug: "stanford-code-in-place",
+    space: "campus",
+    organization: "Stanford University",
+    role: "Code in Place 2025 Section Leader",
+    location: "International",
+    start: "2025-04",
+    end: "2025-06",
+    cvBullets: [
+      "Selected as a Section Leader from a global applicant pool to mentor 100+ students in Python programming through Stanford's CS106A curriculum, providing personalized guidance, debugging support, and interactive learning sessions.",
+      "Built Dream Decoder, a Python-based NLP application that analyses dream narratives using sentiment analysis and symbolic interpretation, reinforcing core programming concepts while mentoring first-time programmers.",
+    ],
+    stack: ["Python", "CS106A curriculum", "Mentoring"],
+    links: ["dream-decoder"],
+  },
+  {
+    slug: "outlier-ai",
+    space: "terminal",
+    organization: "Outlier.AI",
+    role: "Generative AI Engineer",
+    location: "International",
+    start: "2025-02",
+    end: "2025-06",
+    cvBullets: [
+      "Developed and evaluated Generative AI workflows through prompt engineering, response validation, and large language model optimization to improve output quality and reliability.",
+      "Engineered AI-powered solutions by integrating NLP techniques, cloud-based workflows, and model evaluation frameworks to support scalable real-world applications.",
+      "Collaborated with cross-functional teams to fine-tune foundation models, analyse model performance, and maintain high-quality AI-generated outputs across diverse use cases.",
+    ],
+    stack: ["Prompt engineering", "NLP", "Model evaluation", "Cloud workflows"],
+    links: [],
+  },
+];

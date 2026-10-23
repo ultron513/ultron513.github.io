@@ -38,3 +38,4 @@ Install dependencies:
 
 ```bash
 pnpm install
+```
