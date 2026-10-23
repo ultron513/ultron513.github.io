@@ -1,6 +1,8 @@
 # Phase 7: QA and launch readiness
 
-Status: complete on branch `redesign/mission-control`, 2026-10-23. **Not deployed**: merging to `main` publishes the live site, and that is Ashish's call.
+Status: complete, 2026-10-23. Ashish approved deployment to GitHub Pages in chat: "commit the latest changes and everything on this site".
+
+Before deploying, a clean CI build was run: a fresh clone with Node 24.22.1 and pnpm 11.22.0 (the workflow's versions), `pnpm install --frozen-lockfile`, then `pnpm build`. It passed.
 
 ## Fixes made during QA
 
@@ -12,7 +14,7 @@ Status: complete on branch `redesign/mission-control`, 2026-10-23. **Not deploye
 - **Layout shift.**
   - Outlier terminal: the full response text reserves its final height while tokens stream (CLS 0.169 → 0.002).
   - ISTA results: the real result holds its space under the skeleton (CLS 0.021 → 0.009).
-- **Overflow.** On mobile, the ISTA search row pushed text past its card. Grid items may now shrink (`min-width: 0`), and the Playwright suite checks that no text runs past the viewport.
+- **Overflow.** On mobile, the ISTA search row pushed text past its card. Grid items may now shrink (`min-width: 0`). The Playwright suite now checks where visible text actually ends, because `scrollWidth` cannot see overflow that `body` clips.
 - **Main-thread work.** The BI wall and boot readout use CSS transitions instead of Framer Motion components. The home page went from 180 kB to 156 kB first-load JS, and BI TBT from 290 ms to 70–100 ms.
 - **Fonts.** Inter, Space Grotesk and JetBrains Mono are subset to Latin plus the symbols the site uses (pyftsubset, variable axes kept): 352 → 71 kB, 49 → 22 kB, 40 → 38 kB.
 - **Static server.** `scripts/serve-out.mjs` now gzips text like GitHub Pages does, so Lighthouse measures realistic transfer sizes.

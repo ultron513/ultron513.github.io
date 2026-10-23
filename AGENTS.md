@@ -18,9 +18,9 @@ The personal portfolio of Ashish Kumar Patra, live at https://ultron513.github.i
 
 ## Current phase
 
-**Phases 1–7 built on branch `redesign/mission-control`, waiting for Ashish's review before merge.** Under amendment A3, the phases ran back to back. Each one still ran its gate checks and wrote a report in `docs/phase-reports/`.
+**All phases complete and approved for deployment.** Ashish approved deployment on 2026-10-23 (amendment A4). `redesign/mission-control` goes into `main`, which deploys to GitHub Pages. Phase reports are in `docs/phase-reports/`. Any further change needs a new spec version or an amendment.
 
-Change this line only after Ashish approves.
+Change this section only after Ashish approves.
 
 | Phase | Scope (spec §10)                                                                                                 |
 | ----- | ---------------------------------------------------------------------------------------------------------------- |
