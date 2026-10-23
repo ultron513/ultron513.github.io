@@ -97,8 +97,8 @@ const cards: { file: string; kicker: string; title: string; detail: string; acce
   },
   {
     file: "experience",
-    kicker: "Orbit map",
-    title: "Six modules, six workplaces",
+    kicker: "Route map",
+    title: "Six routes from Bhubaneswar",
     detail: "McLaren Racing, IIT Guwahati, Microsoft Elevate, ISTA, Stanford and Outlier.AI.",
     accent: C.accent,
   },

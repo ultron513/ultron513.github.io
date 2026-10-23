@@ -39,6 +39,13 @@ export const ExperienceSchema = z.object({
   shortName: z.string().max(18),
   role: z.string(),
   location: z.string(),
+  /** Where the work was based, for the route map. `remote` marks programmes done from home. */
+  site: z.object({
+    label: z.string(),
+    lat: z.number().min(-90).max(90),
+    lon: z.number().min(-180).max(180),
+    remote: z.boolean(),
+  }),
   start: isoMonth,
   end: isoMonth,
   /** Copied verbatim from the CV. Never paraphrase. */

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { OrbitMap } from "@/components/orbit/orbit-map";
-import { experience, formatPeriod, moduleId } from "@/content";
+import { RouteMap } from "@/components/routes/route-map";
+import { experience, formatPeriod, moduleId, profile } from "@/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -13,23 +13,25 @@ export const metadata: Metadata = pageMetadata({
   og: "experience",
 });
 
-/** Orbit map of all six spaces plus a plain timeline view (spec §3). */
+/** Route map of all six workplaces from home base in Bhubaneswar (amendment A5), plus a plain timeline. */
 export default function ExperiencePage() {
   return (
     <div className="mx-auto max-w-6xl px-5 pb-24 pt-28 sm:pt-32">
       <header className="max-w-2xl">
-        <p className="font-mono text-xs text-faint">{experience.length} modules in orbit</p>
+        <p className="font-mono text-xs text-faint">
+          {experience.length} routes from {profile.location.city}
+        </p>
         <h1 id="experience-title" className="mt-3 font-display text-3xl text-ink">
-          Orbit map
+          Route map
         </h1>
         <p className="mt-4 text-lg text-muted">
-          Every workplace is its own module with its own interior. Pick a station to dock, or read
-          the plain timeline below.
+          Every internship, plotted from home base in {profile.location.city}. Filled markers were
+          on-site and hollow ones were remote. Select a destination to dock with its space.
         </p>
       </header>
 
       <div className="mt-12">
-        <OrbitMap headingId="experience-title" />
+        <RouteMap headingId="experience-title" />
       </div>
 
       <section aria-labelledby="timeline-title" className="mt-24">

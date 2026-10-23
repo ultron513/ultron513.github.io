@@ -24,7 +24,7 @@ const SUGGESTIONS: Suggestion[] = [
   {
     id: "experience",
     label: "ashish patra experience",
-    hint: "Orbit map",
+    hint: "Route map",
     keywords: "jobs work internship",
     href: "/experience/",
   },

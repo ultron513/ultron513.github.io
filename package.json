@@ -14,7 +14,8 @@
     "check:contrast": "node --experimental-strip-types --no-warnings scripts/check-contrast.mts",
     "images": "node --experimental-strip-types --no-warnings scripts/optimise-images.mts",
     "test:visual": "playwright test",
-    "og": "node --experimental-strip-types --no-warnings scripts/generate-og.mts"
+    "og": "node --experimental-strip-types --no-warnings scripts/generate-og.mts",
+    "map": "node --experimental-strip-types --no-warnings scripts/generate-world-map.mts"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.2",
