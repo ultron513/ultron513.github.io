@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
 
+import { Backdrop } from "@/components/shell/backdrop";
+import { CommandPalette } from "@/components/shell/command-palette";
+import { ShellProvider } from "@/components/shell/shell-context";
+import { SiteFooter } from "@/components/shell/site-footer";
+import { SiteHeader } from "@/components/shell/site-header";
+import { WarpTransition } from "@/components/shell/warp-transition";
 import { pageMetadata } from "@/lib/metadata";
 import { SITE } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -54,13 +60,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ThemeProvider>
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
-          >
-            Skip to content
-          </a>
-          {children}
+          <ShellProvider>
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
+            >
+              Skip to content
+            </a>
+            <Backdrop />
+            <SiteHeader />
+            <main id="main" tabIndex={-1} className="focus:outline-none">
+              {children}
+            </main>
+            <SiteFooter />
+            <CommandPalette />
+            <WarpTransition />
+          </ShellProvider>
         </ThemeProvider>
       </body>
     </html>

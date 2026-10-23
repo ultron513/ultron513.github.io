@@ -1,15 +1,28 @@
-import { profile, stats } from "@/content";
+import { Achievements } from "@/components/sections/achievements";
+import { Comms } from "@/components/sections/comms";
+import { FlightTraining } from "@/components/sections/flight-training";
+import { Hero } from "@/components/sections/hero";
+import { MissionPatches } from "@/components/sections/mission-patches";
+import { OrbitSection } from "@/components/sections/orbit-section";
+import { Satellites } from "@/components/sections/satellites";
+import { SystemsPanel } from "@/components/sections/systems-panel";
+import { TelemetryStrip } from "@/components/sections/telemetry-strip";
+import { BootSequence } from "@/components/shell/boot-sequence";
 
-/* Phase 1 placeholder: verifies tokens and both themes. Replaced by Mission Control in Phase 2. */
+/** Mission Control (spec §4): one continuous descent from deep orbit to ground. */
 export default function HomePage() {
   return (
-    <main id="main" className="mx-auto max-w-3xl px-4 py-24">
-      <h1 className="font-display text-3xl text-ink">{profile.name}</h1>
-      <p className="mt-4 text-muted">{profile.introduction}</p>
-      <p className="mt-2 font-mono text-sm text-faint">
-        {stats.experiences} experiences, {stats.projects} projects, LeetCode {stats.leetcodeSolved}
-      </p>
-      <p className="mt-6 text-accent">Accent</p>
-    </main>
+    <>
+      <BootSequence />
+      <Hero />
+      <TelemetryStrip />
+      <OrbitSection />
+      <Satellites />
+      <SystemsPanel />
+      <FlightTraining />
+      <MissionPatches />
+      <Achievements />
+      <Comms />
+    </>
   );
 }

@@ -35,6 +35,8 @@ export const ExperienceSchema = z.object({
   slug,
   space: SpaceKey,
   organization: z.string(),
+  /** Short label for tight spaces such as the orbit map. */
+  shortName: z.string().max(18),
   role: z.string(),
   location: z.string(),
   start: isoMonth,
