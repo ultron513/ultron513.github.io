@@ -49,7 +49,7 @@ export default function NotFound() {
             href="/experience/"
             className="rounded-full border border-line-strong px-5 py-3 text-sm text-ink hover:border-accent"
           >
-            Open the orbit map
+            Open the route map
           </Link>
         </div>
       </div>

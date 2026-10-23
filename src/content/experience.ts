@@ -12,6 +12,7 @@ export const experience: Experience[] = [
     shortName: "McLaren Racing",
     role: "Student Racing Data Scientist Intern",
     location: "Woking, UK",
+    site: { label: "Woking, UK", lat: 51.319, lon: -0.558, remote: false },
     start: "2026-05",
     end: "2026-07",
     cvBullets: [
@@ -40,6 +41,7 @@ export const experience: Experience[] = [
     shortName: "IIT Guwahati",
     role: "Project Intern",
     location: "Guwahati, India",
+    site: { label: "Guwahati, India", lat: 26.1878, lon: 91.6916, remote: false },
     start: "2026-03",
     end: "2026-07",
     cvBullets: [
@@ -59,6 +61,7 @@ export const experience: Experience[] = [
     shortName: "Microsoft Elevate",
     role: "Power BI Trainee",
     location: "India",
+    site: { label: "AICTE, New Delhi", lat: 28.6139, lon: 77.209, remote: true },
     start: "2026-02",
     end: "2026-03",
     cvBullets: [
@@ -76,6 +79,7 @@ export const experience: Experience[] = [
     shortName: "ISTA",
     role: "Research Intern, ISTernship 2025",
     location: "Klosterneuburg, Austria",
+    site: { label: "Klosterneuburg, Austria", lat: 48.3097, lon: 16.2578, remote: false },
     start: "2025-05",
     end: "2025-06",
     cvBullets: [
@@ -95,6 +99,7 @@ export const experience: Experience[] = [
     shortName: "Stanford",
     role: "Code in Place 2025 Section Leader",
     location: "International",
+    site: { label: "Stanford, California", lat: 37.4275, lon: -122.1697, remote: true },
     start: "2025-04",
     end: "2025-06",
     cvBullets: [
@@ -111,6 +116,7 @@ export const experience: Experience[] = [
     shortName: "Outlier.AI",
     role: "Generative AI Engineer",
     location: "International",
+    site: { label: "San Francisco, California", lat: 37.7749, lon: -122.4194, remote: true },
     start: "2025-02",
     end: "2025-06",
     cvBullets: [

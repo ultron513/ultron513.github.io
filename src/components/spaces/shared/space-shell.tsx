@@ -28,7 +28,7 @@ export function SpaceShell({
           <svg viewBox="0 0 16 16" aria-hidden="true" className="size-3.5">
             <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" strokeWidth="1.6" />
           </svg>
-          Undock to orbit map
+          Undock to route map
         </Link>
         <p className="mt-8 font-mono text-xs text-faint">
           <span className="text-space">{moduleId(item.slug)}</span> · {item.start} → {item.end}
