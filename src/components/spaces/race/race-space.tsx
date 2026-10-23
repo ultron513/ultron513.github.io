@@ -198,9 +198,7 @@ export default function RaceSpace({ item }: { item: Experience }) {
             <div
               className={cn(
                 "mt-3 flex items-center justify-between rounded-sm border px-3 py-2 font-mono text-xs transition-all duration-500",
-                complete
-                  ? "border-space text-ink opacity-100"
-                  : "border-line text-faint opacity-60",
+                complete ? "border-space text-ink" : "border-line text-muted",
               )}
             >
               <span>{complete ? "Lap complete" : `Sector ${active + 1} of ${sectors}`}</span>
@@ -229,7 +227,7 @@ export default function RaceSpace({ item }: { item: Experience }) {
                 key={bullet}
                 className={cn(
                   "hud glass rounded-md p-6 shadow-depth transition-[opacity,transform] duration-500 lg:min-h-[38vh]",
-                  reached ? "opacity-100" : "opacity-45",
+                  reached ? "border-line-strong" : "",
                   i === active && !reduced ? "lg:translate-x-1" : "",
                 )}
               >
@@ -248,7 +246,14 @@ export default function RaceSpace({ item }: { item: Experience }) {
                     {reached ? sectorTimes[i].toFixed(3) : "--.---"}
                   </span>
                 </div>
-                <p className="mt-4 text-lg text-ink">{bullet}</p>
+                <p
+                  className={cn(
+                    "mt-4 text-lg transition-colors duration-500",
+                    reached ? "text-ink" : "text-muted",
+                  )}
+                >
+                  {bullet}
+                </p>
               </li>
             );
           })}

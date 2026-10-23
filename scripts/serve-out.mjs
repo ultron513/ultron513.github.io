@@ -1,11 +1,13 @@
 /*
  * Tiny static server for the exported site in out/ (used by Playwright and Lighthouse).
- * Mirrors GitHub Pages: directory -> index.html, unknown path -> 404.html with status 404.
+ * Mirrors GitHub Pages: directory -> index.html, unknown path -> 404.html with status 404,
+ * and gzip for text responses (so Lighthouse measures realistic transfer sizes).
  * Run: node scripts/serve-out.mjs [port]
  */
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { createGzip } from "node:zlib";
 
 const root = join(process.cwd(), "out");
 const port = Number(process.argv[2] ?? process.env.PORT ?? 4173);
@@ -35,8 +37,14 @@ function resolve(urlPath) {
 createServer((req, res) => {
   const file = resolve(req.url ?? "/");
   const target = file ?? join(root, "404.html");
+  const type = types[extname(target)] ?? "application/octet-stream";
+  const gzip =
+    /text|javascript|json|xml|svg/.test(type) &&
+    /\bgzip\b/.test(req.headers["accept-encoding"] ?? "");
   res.writeHead(file ? 200 : 404, {
-    "content-type": types[extname(target)] ?? "application/octet-stream",
+    "content-type": type,
+    ...(gzip ? { "content-encoding": "gzip", vary: "accept-encoding" } : {}),
   });
-  createReadStream(target).pipe(res);
+  const stream = createReadStream(target);
+  (gzip ? stream.pipe(createGzip()) : stream).pipe(res);
 }).listen(port, () => console.log(`Serving out/ on http://localhost:${port}`));

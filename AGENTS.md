@@ -18,9 +18,9 @@ The personal portfolio of Ashish Kumar Patra, live at https://ultron513.github.i
 
 ## Current phase
 
-**Phase 1: Foundation.** The Phase 0 gate (spec approval) passed on 2026-10-23.
+**Phases 1–7 built on branch `redesign/mission-control`, waiting for Ashish's review before merge.** Under amendment A3, the phases ran back to back. Each one still ran its gate checks and wrote a report in `docs/phase-reports/`.
 
-Change this line only after Ashish approves a phase gate.
+Change this line only after Ashish approves.
 
 | Phase | Scope (spec §10)                                                                                                 |
 | ----- | ---------------------------------------------------------------------------------------------------------------- |
@@ -67,36 +67,43 @@ Change this line only after Ashish approves a phase gate.
     - Gate claims must quote actual command output: build, lint, typecheck, contrast, Playwright and Lighthouse.
     - If a tool cannot run, say so. Do not estimate.
 12. **Git.**
-    - Work on a branch named `redesign/phase-<n>`.
+    - Work on a feature branch. The redesign lives on `redesign/mission-control`, one commit per phase.
     - Never push to `main`, and never merge, without Ashish's approval.
     - Commit messages use the imperative mood and describe one change each.
 
 ## Commands
 
-| Command                             | What it does                                                                             | Available from      |
-| ----------------------------------- | ---------------------------------------------------------------------------------------- | ------------------- |
-| `pnpm install`                      | Install dependencies (pnpm 11, lockfile v9)                                              | now                 |
-| `pnpm dev`                          | Dev server                                                                               | now                 |
-| `pnpm build`                        | Static export to `out/`                                                                  | now                 |
-| `pnpm format` / `pnpm format:check` | Prettier                                                                                 | now                 |
-| `pnpm typecheck`                    | `tsc --noEmit`                                                                           | Phase 1 adds it     |
-| `pnpm lint`                         | `eslint .` (flat config). The old `next lint` is deprecated and fails today              | Phase 1 replaces it |
-| `pnpm check:contrast`               | `scripts/check-contrast.ts`: fails if any text token pair is below 4.5:1 in either theme | Phase 1 adds it     |
-| `pnpm test:visual`                  | Playwright screenshots: home, six spaces, `/cv`, both themes, 390 px and 1440 px         | Phase 1 adds it     |
-| `pnpm images`                       | `scripts/optimise-images.ts`: re-encode project images to ≤ 250 kB at 1600 w and 800 w   | Phase 1 adds it     |
+| Command                             | What it does                                                                                                                                                                             |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm install`                      | Install dependencies (pnpm 11, lockfile v9)                                                                                                                                              |
+| `pnpm dev`                          | Dev server                                                                                                                                                                               |
+| `pnpm build`                        | `validate:content`, then the static export to `out/`                                                                                                                                     |
+| `pnpm start`                        | Serve `out/` like GitHub Pages, with gzip (`scripts/serve-out.mjs`, port 4173)                                                                                                           |
+| `pnpm typecheck`                    | `tsc --noEmit`                                                                                                                                                                           |
+| `pnpm lint`                         | `eslint .` (flat config)                                                                                                                                                                 |
+| `pnpm format` / `pnpm format:check` | Prettier                                                                                                                                                                                 |
+| `pnpm validate:content`             | Zod-validates every content file and checks that referenced images, the CV and the OG cards exist                                                                                        |
+| `pnpm check:contrast`               | Fails if any text token pair is below 4.5:1 or out of gamut in either theme                                                                                                              |
+| `pnpm test:visual`                  | Playwright, after `pnpm build`: home, six spaces and `/cv` in both themes at 390 px and 1440 px, plus smoke tests, reduced motion and 404. Set `CHROMIUM_PATH` to reuse a local Chromium |
+| `pnpm images`                       | Re-encode project images to ≤ 250 kB at full width, plus an `-800.webp` copy                                                                                                             |
+| `pnpm og`                           | Regenerate the Open Graph PNG cards in `public/og/`. Run after changing content                                                                                                          |
 
-## Target structure (spec §8)
+Scripts are `.mts` files run with Node's built-in type stripping (Node ≥ 22.6). No extra TypeScript runner is needed.
+
+## Structure (spec §8, as built)
 
 ```
-src/app/           routes: /, /experience, /experience/[slug] (6), /projects, /projects/[slug],
-                   /certificates, /cv, /contact, not-found, sitemap.ts
-src/content/       schema.ts (Zod) + profile, experience, projects, skills, education,
-                   certifications, achievements (types via z.infer; replaces src/types/)
-src/design/        tokens.css (OKLCH, both themes), spaces.css (data-space accents)
-src/lib/theme/     custom theme provider + inline pre-paint script
-src/components/    shell/ hud/ three/ spaces/{shared,race,lab,bi,search,campus,terminal}/
-                   cv-search/ sections/
-scripts/           check-contrast.ts, optimise-images.ts
+src/app/            routes: /, /experience, /experience/[slug] (6), /projects, /projects/[slug],
+                    /certificates, /contact, /cv, not-found, sitemap.ts, robots.ts
+src/content/        schema.ts (Zod; types via z.infer) + profile, experience, projects, catalog,
+                    index.ts (helpers and computed stats). Zod runs only at build time.
+src/design/         tokens.css (OKLCH, both themes, data-space accents)
+src/lib/            theme/ (provider + pre-paint script), motion, seeded PRNG, cv-meta, metadata
+src/components/     shell/ hud/ three/ (shaders/) orbit/ sections/ projects/ certificates/
+                    cv-search/ spaces/{shared,race,lab,bi,search,campus,terminal}/
+scripts/            validate-content, check-contrast, optimise-images, generate-og (.mts), serve-out.mjs
+tests/              visual.spec.ts (Playwright)
+docs/               spec/ (frozen spec + amendments), phase-reports/
 ```
 
 ## Decisions locked at approval (spec "Open questions") and amendments

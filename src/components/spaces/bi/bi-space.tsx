@@ -1,11 +1,11 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
 
 import { getProject, projectImage, type Experience } from "@/content";
-import { EASE_OUT, usePrefersReducedMotion } from "@/lib/motion";
+import { usePrefersReducedMotion } from "@/lib/motion";
 import { noise1d, seeded } from "@/lib/seeded";
 import { cn } from "@/lib/utils";
 
@@ -52,15 +52,17 @@ function Panel({
   children: React.ReactNode;
 }) {
   return (
-    <motion.div
-      initial={false}
-      animate={show ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 16, scale: 0.98 }}
-      transition={{ duration: 0.45, delay: show ? index * 0.12 : 0, ease: EASE_OUT }}
-      className={cn("rounded-sm border border-line bg-bg p-4", className)}
+    <div
+      className={cn(
+        "rounded-sm border border-line bg-bg p-4 transition-[opacity,transform] duration-500 ease-out",
+        show ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.98] opacity-0",
+        className,
+      )}
+      style={{ transitionDelay: show ? `${index * 120}ms` : "0ms" }}
     >
       <p className="font-mono text-xs text-faint">{title}</p>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -76,17 +78,18 @@ function Annotation({
   delay: number;
 }) {
   return (
-    <motion.li
-      initial={false}
-      animate={show ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
-      transition={{ duration: 0.4, delay: show ? delay : 0, ease: EASE_OUT }}
-      className="flex gap-3 border-t border-line pt-4 text-sm text-muted"
+    <li
+      className={cn(
+        "flex gap-3 border-t border-line pt-4 text-sm text-muted transition-[opacity,transform] duration-500 ease-out",
+        show ? "translate-x-0 opacity-100" : "translate-x-3 opacity-0",
+      )}
+      style={{ transitionDelay: show ? `${delay * 1000}ms` : "0ms" }}
     >
       <span className="grid size-6 shrink-0 place-items-center rounded-full bg-space font-mono text-xs text-on-accent">
         {number}
       </span>
       <span>{text}</span>
-    </motion.li>
+    </li>
   );
 }
 
@@ -199,11 +202,12 @@ export default function BiSpace({ item }: { item: Experience }) {
                 >
                   <span className="text-muted">{city.name}</span>
                   <span className="h-2 rounded-full bg-line">
-                    <motion.span
-                      className="block h-full rounded-full bg-space"
-                      initial={false}
-                      animate={{ width: show ? `${(city.aqi / 260) * 100}%` : "0%" }}
-                      transition={{ duration: 0.7, delay: show ? 0.9 : 0, ease: EASE_OUT }}
+                    <span
+                      className="block h-full rounded-full bg-space transition-[width] duration-700 ease-out"
+                      style={{
+                        width: show ? `${(city.aqi / 260) * 100}%` : "0%",
+                        transitionDelay: show ? "900ms" : "0ms",
+                      }}
                     />
                   </span>
                   <span className="text-right font-mono text-ink">{city.aqi}</span>

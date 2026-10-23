@@ -69,7 +69,7 @@ function ResultsPanel({ item }: { item: Experience }) {
             {profile.wordmark}
             <span className="text-space">.</span>
           </span>
-          <div className="flex h-11 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg px-4">
+          <div className="flex h-11 min-w-0 flex-1 items-center gap-3 rounded-full border border-line-strong bg-bg px-4">
             <svg viewBox="0 0 20 20" className="size-4 shrink-0 text-faint" aria-hidden="true">
               <circle
                 cx="8.5"
@@ -100,33 +100,35 @@ function ResultsPanel({ item }: { item: Experience }) {
 
         <ol className="mt-5 space-y-7">
           {item.cvBullets.map((bullet, i) => (
-            <li key={bullet}>
-              {stage === "done" ? (
-                <div
-                  className="animate-[fade-in_400ms_ease-out_both]"
-                  style={{ animationDelay: `${i * 70}ms` }}
-                >
-                  <p className="font-mono text-xs text-muted">
-                    ashish › ista › {CRUMBS[i] ?? "compiler-research"}
-                  </p>
-                  <h3 className="mt-1 font-display text-lg text-space">{TITLES[i] ?? item.role}</h3>
-                  <p className="mt-1 text-muted">{bullet}</p>
-                </div>
-              ) : (
-                <div className="space-y-2" aria-hidden="true">
+            <li key={bullet} className="relative">
+              {/* The real result always holds its space (no layout shift); the skeleton sits on top until loaded. */}
+              <div
+                className={cn(
+                  stage === "done" ? "animate-[fade-in_400ms_ease-out_both]" : "invisible",
+                )}
+                style={stage === "done" ? { animationDelay: `${i * 70}ms` } : undefined}
+              >
+                <p className="font-mono text-xs text-muted">
+                  ashish › ista › {CRUMBS[i] ?? "compiler-research"}
+                </p>
+                <h2 className="mt-1 font-display text-lg text-space">{TITLES[i] ?? item.role}</h2>
+                <p className="mt-1 text-muted">{bullet}</p>
+              </div>
+              {stage !== "done" ? (
+                <div className="absolute inset-0 space-y-2" aria-hidden="true">
                   <div className="h-3 w-48 rounded-sm bg-line" />
                   <div className="h-4 w-80 max-w-full rounded-sm bg-line-strong" />
                   <div className="h-3 w-full rounded-sm bg-line" />
                   <div className="h-3 w-2/3 rounded-sm bg-line" />
                 </div>
-              )}
+              ) : null}
             </li>
           ))}
         </ol>
       </div>
 
       <aside className="h-fit rounded-md border border-line p-5" aria-label="Knowledge panel">
-        <h3 className="font-display text-lg text-ink">{item.organization}</h3>
+        <h2 className="font-display text-lg text-ink">{item.organization}</h2>
         <p className="text-sm text-muted">{item.role}</p>
         <dl className="mt-5 space-y-3 text-sm">
           <div className="flex justify-between gap-4 border-t border-line pt-3">
@@ -198,7 +200,7 @@ function ControlFlowGraph() {
   return (
     <div ref={ref} className="mt-10 rounded-md border border-line p-5 sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h3 className="font-display text-lg text-ink">Block layout, before and after</h3>
+        <h2 className="font-display text-lg text-ink">Block layout, before and after</h2>
         <p className="font-mono text-xs text-faint">
           {ease < 0.5 ? "Source order" : "Hot path falls through"}
         </p>

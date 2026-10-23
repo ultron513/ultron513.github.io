@@ -1,41 +1,51 @@
-# Ashish Patra — Portfolio
+# Ashish Patra: Mission Control
 
-Personal portfolio website for Ashish Kumar Patra.
+The personal portfolio of Ashish Kumar Patra, live at **https://ultron513.github.io**.
 
-## Tech Stack
+The theme is deep space with futuristic tech. The home page is Mission Control: a 3D hero, an orbit map of six job spaces, projects as satellites and certificates as mission patches. Each workplace has its own themed space:
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-- Framer Motion
-- GSAP
-- Lenis
-- React Three Fiber
-- Zod
+- a race pit wall for McLaren
+- a search office for ISTA
+- a lecture hall for Stanford Code in Place
+- a research bench for IIT Guwahati
+- a BI control room for Microsoft Elevate
+- an AI eval console for Outlier
 
-## Project Structure
+The CV downloads through a search-style console with a transmission animation. Dark (Deep Space) and light (Daylight Orbit) themes are equally supported.
 
-The project follows a fixed architecture separating:
+- **Spec:** [`docs/spec/redesign-v1.md`](docs/spec/redesign-v1.md) (frozen) and [`docs/spec/amendments.md`](docs/spec/amendments.md)
+- **Build reports:** [`docs/phase-reports/`](docs/phase-reports/)
+- **Agent rules (Google Antigravity and others):** [`AGENTS.md`](AGENTS.md) and [`.agents/`](.agents/)
 
-- application routes
-- reusable components
-- page sections
-- project components
-- experience components
-- certificate components
-- animations
-- 3D components
-- data
-- utilities
-- hooks
-- types
+## Stack
 
-## Development
+Next.js 15 (App Router, static export), React 19, TypeScript, Tailwind CSS v4 with OKLCH design tokens, Framer Motion, React Three Fiber with hand-written GLSL shaders, and Zod (build-time content validation only).
 
-Install dependencies:
+## Develop
+
+Requires Node 22.6 or newer and pnpm 11.
 
 ```bash
 pnpm install
+pnpm dev                 # http://localhost:3000
 ```
+
+## Check and build
+
+```bash
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm check:contrast      # every text token ≥ 4.5:1 in both themes
+pnpm build               # validates content, then exports to out/
+pnpm start               # serve out/ like GitHub Pages (http://localhost:4173)
+pnpm test:visual         # Playwright screenshots and smoke tests (run after build)
+```
+
+## Edit content
+
+All text lives in `src/content/`. CV bullets in `experience.ts` are copied word for word from `public/documents/Ashish_Patra_CV.pdf`. After changing content, run `pnpm og` to regenerate the Open Graph cards. `pnpm build` refuses to build if content is invalid or a referenced file is missing.
+
+## Deploy
+
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds `out/` and publishes it to GitHub Pages.

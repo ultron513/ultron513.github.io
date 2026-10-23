@@ -1,14 +1,26 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 export const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
 
-/** True when the visitor asked for reduced motion. `false` during SSR. */
+/**
+ * True when the visitor asked for reduced motion.
+ * Hydration-safe: always `false` on the server and on the first client render, then the real value
+ * after mount. (Reading matchMedia during the first render would make the client HTML differ from
+ * the prerendered HTML.)
+ */
 export function usePrefersReducedMotion(): boolean {
-  return useReducedMotion() ?? false;
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  return reduced;
 }
 
 function webglAvailable(): boolean {

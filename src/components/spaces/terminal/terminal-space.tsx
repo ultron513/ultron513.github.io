@@ -1,7 +1,7 @@
 "use client";
 
 import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Experience } from "@/content";
 import { usePrefersReducedMotion } from "@/lib/motion";
@@ -19,7 +19,10 @@ export default function TerminalSpace({ item }: { item: Experience }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-20% 0px" });
   const reduced = usePrefersReducedMotion();
-  const tokens = item.cvBullets.map((bullet) => bullet.split(/(\s+)/));
+  const tokens = useMemo(
+    () => item.cvBullets.map((bullet) => bullet.split(/(\s+)/)),
+    [item.cvBullets],
+  );
   const total = tokens.reduce((sum, t) => sum + t.length, 0);
   const [streamed, setStreamed] = useState(0);
   const [validated, setValidated] = useState(0);
@@ -37,7 +40,7 @@ export default function TerminalSpace({ item }: { item: Experience }) {
       tokens.slice(0, i + 1).reduce((s, t) => s + t.length, 0),
     );
     const timer = window.setInterval(() => {
-      count += 2;
+      count += 3;
       setStreamed(count);
       while (done < boundaries.length && count >= boundaries[done]) {
         const index = done + 1;
@@ -45,7 +48,7 @@ export default function TerminalSpace({ item }: { item: Experience }) {
         done++;
       }
       if (count >= total) window.clearInterval(timer);
-    }, 26);
+    }, 40);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, reduced, total]);
@@ -74,14 +77,18 @@ export default function TerminalSpace({ item }: { item: Experience }) {
               return (
                 <div
                   key={i}
-                  className={cn("transition-opacity", started ? "opacity-100" : "opacity-30")}
+                  className={cn("transition-colors", started ? "text-ink" : "text-faint")}
                 >
                   <p className="text-faint">response[{i + 1}]</p>
-                  <p className="mt-1 min-h-[1.5rem] whitespace-pre-wrap text-ink">
-                    {shown}
-                    {streaming ? (
-                      <span className="ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-space" />
-                    ) : null}
+                  <p className="relative mt-1 whitespace-pre-wrap text-ink">
+                    {/* Invisible full text reserves the final height, so streaming causes no layout shift. */}
+                    <span className="invisible">{parts.join("")}</span>
+                    <span className="absolute inset-0">
+                      {shown}
+                      {streaming ? (
+                        <span className="ml-0.5 inline-block h-4 w-2 translate-y-0.5 bg-space" />
+                      ) : null}
+                    </span>
                   </p>
                   <p
                     className={cn(

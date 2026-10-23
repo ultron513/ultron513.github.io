@@ -1,3 +1,4 @@
+import { DecryptText } from "@/components/hud/decrypt-text";
 import { cn } from "@/lib/utils";
 
 /** Page section with a left-aligned heading block. `id` doubles as the in-page anchor. */
@@ -25,7 +26,7 @@ export function Section({
       <div className="mb-10 flex flex-wrap items-end justify-between gap-6 sm:mb-14">
         <div className="max-w-2xl">
           <h2 id={`${id}-title`} className="font-display text-2xl text-ink">
-            {title}
+            <DecryptText text={title} />
           </h2>
           {intro ? <p className="mt-4 text-lg text-muted">{intro}</p> : null}
         </div>

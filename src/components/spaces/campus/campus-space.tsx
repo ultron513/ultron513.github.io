@@ -114,7 +114,7 @@ function LectureHall() {
   return (
     <div ref={ref} className="rounded-md border border-line p-5 sm:p-6">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="font-display text-lg text-ink">The section</h3>
+        <h2 className="font-display text-lg text-ink">The section</h2>
         <p className="font-mono text-sm text-ink" aria-live="polite">
           <span className="text-space tabular-nums">{filled >= total ? "100+" : filled}</span>{" "}
           students

@@ -24,7 +24,7 @@ export default function ProjectsPage() {
       <ul className="mt-12 grid gap-5 md:grid-cols-2">
         {projects.map((project, i) => (
           <li key={project.slug}>
-            <SatelliteCard project={project} priority={i < 2} />
+            <SatelliteCard project={project} priority={i < 2} headingLevel={2} />
           </li>
         ))}
       </ul>

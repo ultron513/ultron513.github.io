@@ -20,6 +20,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
 
   useEffect(() => {
+    // Re-assert the attribute in case anything replaced <html> attributes after the pre-paint script.
+    if (!document.documentElement.hasAttribute("data-theme")) {
+      let saved: string | null = null;
+      try {
+        saved = localStorage.getItem(THEME_STORAGE_KEY);
+      } catch {}
+      const fallback = window.matchMedia("(prefers-color-scheme: light)").matches
+        ? "light"
+        : "dark";
+      document.documentElement.setAttribute(
+        "data-theme",
+        saved === "light" || saved === "dark" ? saved : fallback,
+      );
+    }
     setThemeState(readTheme());
     const media = window.matchMedia("(prefers-color-scheme: light)");
     const onChange = (event: MediaQueryListEvent) => {

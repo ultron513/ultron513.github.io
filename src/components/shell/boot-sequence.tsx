@@ -1,9 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
-import { EASE_OUT } from "@/lib/motion";
 
 const KEY = "mission-control-booted";
 const CHECKS = ["Navigation", "Telemetry", "Comms"];
@@ -40,12 +37,9 @@ export function BootSequence() {
   if (state !== "running") return null;
 
   return (
-    <motion.div
+    <div
       aria-hidden="true"
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: EASE_OUT }}
-      className="glass pointer-events-none fixed bottom-4 left-4 z-[60] rounded-sm px-4 py-3 font-mono text-xs text-muted"
+      className="glass pointer-events-none fixed bottom-4 left-4 z-[60] animate-[fade-in_200ms_ease-out_both] rounded-sm px-4 py-3 font-mono text-xs text-muted"
     >
       <p className="text-ink">Systems check</p>
       <ul className="mt-1.5 space-y-0.5">
@@ -58,6 +52,6 @@ export function BootSequence() {
           </li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   );
 }

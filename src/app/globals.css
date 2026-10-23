@@ -129,6 +129,11 @@
     max-width: 100%;
   }
 
+  /* Grid items may shrink below their content's min width, so long words never blow out a column. */
+  :where(.grid) > * {
+    min-width: 0;
+  }
+
   dialog::backdrop {
     background: oklch(0.1 0.02 272 / 0.6);
     backdrop-filter: blur(6px);

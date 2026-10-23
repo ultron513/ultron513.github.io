@@ -112,14 +112,14 @@ export default function LabSpace({ item }: { item: Experience }) {
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <h3
+                      <h2
                         className={cn(
                           "mt-3 font-display text-lg transition-colors",
                           lit ? "text-ink" : "text-faint",
                         )}
                       >
                         {stage.name}
-                      </h3>
+                      </h2>
                       <p
                         className={cn(
                           "mt-2 text-sm transition-opacity duration-500",

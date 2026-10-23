@@ -8,10 +8,13 @@ import { TiltCard } from "./tilt-card";
 export function SatelliteCard({
   project,
   priority = false,
+  headingLevel = 3,
 }: {
   project: Project;
   priority?: boolean;
+  headingLevel?: 2 | 3;
 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <TiltCard className="h-full">
       <article className="hud glass group relative flex h-full flex-col overflow-hidden rounded-md shadow-depth">
@@ -30,14 +33,14 @@ export function SatelliteCard({
         </div>
         <div className="flex flex-1 flex-col p-6">
           <p className="font-mono text-xs text-accent">{project.category}</p>
-          <h3 className="mt-2 font-display text-xl text-ink">
+          <Heading className="mt-2 font-display text-xl text-ink">
             <Link
               href={`/projects/${project.slug}/`}
               className="after:absolute after:inset-0 focus-visible:outline-none"
             >
               {project.shortTitle}
             </Link>
-          </h3>
+          </Heading>
           <p className="mt-3 line-clamp-3 text-sm text-muted">{project.description}</p>
           <ul className="mt-auto flex flex-wrap gap-1.5 pt-5" aria-label="Tech stack">
             {project.technologies.slice(0, 5).map((tech) => (

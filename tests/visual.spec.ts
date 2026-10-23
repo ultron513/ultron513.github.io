@@ -47,6 +47,10 @@ async function assertHealthy(page: Page, errors: string[], theme: string) {
   await expect(page.locator("h1")).toHaveCount(1);
   const unlabelled = await page.locator("img:not([alt])").count();
   expect(unlabelled, "every <img> needs alt text").toBe(0);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - window.innerWidth,
+  );
+  expect(overflow, "no horizontal page scroll").toBeLessThanOrEqual(0);
   expect(errors, "no console errors").toEqual([]);
 }
 
@@ -79,15 +83,18 @@ for (const path of SMOKE_ROUTES) {
   });
 }
 
-test("reduced motion shows every CV bullet without scrolling", async ({ browser }) => {
-  const context = await browser.newContext({ reducedMotion: "reduce" });
-  const page = await context.newPage();
-  const errors = await open(page, "/experience/mclaren-racing/", "dark");
-  await assertHealthy(page, errors, "dark");
-  await expect(page.getByRole("list", { name: "CV highlights" }).getByRole("listitem")).toHaveCount(
-    6,
-  );
-  await context.close();
+test.describe("reduced motion", () => {
+  test.use({ reducedMotion: "reduce" });
+
+  test("every space shows its settled state and all CV bullets", async ({ page }) => {
+    const errors = await open(page, "/experience/mclaren-racing/", "dark");
+    await assertHealthy(page, errors, "dark");
+    await expect(
+      page.getByRole("list", { name: "CV highlights" }).getByRole("listitem"),
+    ).toHaveCount(6);
+    // Settled final state without scrolling: the lap is complete.
+    await expect(page.getByText("Lap complete")).toBeVisible();
+  });
 });
 
 test("404 page", async ({ page }) => {
