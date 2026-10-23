@@ -47,10 +47,22 @@ async function assertHealthy(page: Page, errors: string[], theme: string) {
   await expect(page.locator("h1")).toHaveCount(1);
   const unlabelled = await page.locator("img:not([alt])").count();
   expect(unlabelled, "every <img> needs alt text").toBe(0);
-  const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - window.innerWidth,
-  );
-  expect(overflow, "no horizontal page scroll").toBeLessThanOrEqual(0);
+  // body clips horizontal overflow, so check where visible text actually ends, not scrollWidth.
+  const overflowing = await page.evaluate(() => {
+    const out: string[] = [];
+    for (const el of Array.from(document.querySelectorAll<HTMLElement>("body *"))) {
+      const ownText = Array.from(el.childNodes).some(
+        (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim(),
+      );
+      if (!ownText || el.closest(".sr-only, dialog:not([open])")) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.width && rect.right > window.innerWidth + 1) {
+        out.push(`${el.tagName}: ${el.textContent?.trim().slice(0, 40)}`);
+      }
+    }
+    return out.slice(0, 5);
+  });
+  expect(overflowing, "no text runs past the viewport").toEqual([]);
   expect(errors, "no console errors").toEqual([]);
 }
 
