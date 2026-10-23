@@ -120,6 +120,7 @@ export function SearchCombobox<T extends SearchItem>({
         ref={inputRef}
         id={`${id}-input`}
         name={name}
+        data-autofocus={autoFocus ? "" : undefined}
         type="search"
         role="combobox"
         autoComplete="off"

@@ -1,11 +1,13 @@
 import type { Metadata, Viewport } from "next";
 
+import { CvOverlay } from "@/components/cv-search/cv-overlay";
 import { Backdrop } from "@/components/shell/backdrop";
 import { CommandPalette } from "@/components/shell/command-palette";
 import { ShellProvider } from "@/components/shell/shell-context";
 import { SiteFooter } from "@/components/shell/site-footer";
 import { SiteHeader } from "@/components/shell/site-header";
 import { WarpTransition } from "@/components/shell/warp-transition";
+import { getCvMeta } from "@/lib/cv-meta";
 import { pageMetadata } from "@/lib/metadata";
 import { SITE } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
@@ -74,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </main>
             <SiteFooter />
             <CommandPalette />
+            <CvOverlay meta={getCvMeta()} />
             <WarpTransition />
           </ShellProvider>
         </ThemeProvider>
